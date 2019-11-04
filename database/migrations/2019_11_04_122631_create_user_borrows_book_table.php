@@ -16,8 +16,8 @@ class CreateUserBorrowsBookTable extends Migration
         Schema::create('user_borrows_book', function (Blueprint $table) {
             
             $table->increments('id');
-            $table->String('date');
-            $table->String('hour');
+            $table->Date('date');
+            $table->Datetime('hour');
 
             $table->integer('id_user')->unsigned();
             $table->foreign('id_user')->references('id')->on('user');
