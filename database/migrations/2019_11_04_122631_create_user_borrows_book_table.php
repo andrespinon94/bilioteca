@@ -15,15 +15,13 @@ class CreateUserBorrowsBookTable extends Migration
     {
         Schema::create('user_borrows_book', function (Blueprint $table) {
             
-            $table->increments('id');
-            $table->Date('date');
-            $table->Datetime('hour');
+            $table->primary(['id_user','id_book']);
 
             $table->integer('id_user')->unsigned();
-            $table->foreign('id_user')->references('id')->on('user');
+            $table->foreign('id_user')->references('id')->on('users');
 
             $table->integer('id_book')->unsigned();
-            $table->foreign('id_book')->references('id')->on('book');
+            $table->foreign('id_book')->references('id')->on('books');
 
             
             $table->timestamps();
