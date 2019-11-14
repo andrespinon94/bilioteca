@@ -6,6 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class book extends Model
 {
-    protected $table = 'book';
+    protected $table = 'books';
     protected $filable = ['id','title','description'];
 }
