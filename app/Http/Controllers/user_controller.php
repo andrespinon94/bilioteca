@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\Token;
+use Firebase\JWT\JWT;
 
 class user_controller extends Controller
 {
@@ -27,20 +29,31 @@ class user_controller extends Controller
         //
     }
 
+
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function userStore(Request $request)
     {
-        $user = New User();
-        $user->password = $request->password;
-        $user->email = $request->email;
-        $user->save();
+        $user = new User();
 
+        $user->register($request);
+
+        $data_token = [
+            "email" => $user->email,
+        ];
+
+        $token = new Token($data_token);
+        $tokenEncode = $token->encode();
+    
+        return response()->json([
+            "token" => $tokenEncode
+        ], 201);
     }
+
 
     /**
      * Display the specified resource.
@@ -48,9 +61,12 @@ class user_controller extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show()
     {
-        //
+        $users = User::all();
+        foreach ($users as $key => $value) {
+            print($value);
+        }
     }
 
     /**
@@ -85,5 +101,29 @@ class user_controller extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function login(Request $request)
+    {
+        $users = User::all();
+
+    foreach ($users as $key => $user) {
+        
+        if($request->email == $user->email && $request->password == $user->password){
+
+                $data_token = [
+                    "email" => $user->email,
+                ];
+
+                $token = new Token($data_token);
+                $tokenEncoded = $token->encode();
+
+                return response()->json(["token" => $tokenEncoded],201);
+        }
+
+    }
+
+ return response()->json (["Error"=>"No se ha encontrado"],401);
+
     }
 }

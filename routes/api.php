@@ -22,5 +22,6 @@ Route::POST('store','book_controller@store');
 
 
 Route::apiResource('users','user_controller');
-//Route::POST();
-//Route::POST();
+Route::POST('userStore','user_controller@userStore');
+Route::GET('show','user_controller@show');
+Route::POST('login','user_controller@login');

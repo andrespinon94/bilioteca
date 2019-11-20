@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Helpers;
+namespace App;
 use Firebase\JWT\JWT;
 
 class Token 
