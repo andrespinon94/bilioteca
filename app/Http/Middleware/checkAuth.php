@@ -18,28 +18,18 @@ class checkAuth
      */
     public function handle($request, Closure $next)
     {
-        /*
-        $user = new User();
-        if($user->is_authorized($request))
+        $token_encoded = $request->header('Authorization');
+
+        if (isset($token_encoded)) 
         {
-            return $next($request);
-        }
-        
-        var_dump('no tienes permisos'); exit;
-        */
-    
-        $token_encoded = $request->header('Authentication');
+            $token = New Token;
+            $data_token = $token->decode($token_encoded);
+            $user = User::where('email',$data_token->email)->first();
 
-        if (isset($token_encoded)) {
-
-        $token = New Token;
-        $data_token = $token->decode($token_encoded);
-
-        $user = User::where('email',$data_token->email)->first();
-
-        if (isset($user)) {
-            return $next($request);
-        }
+            if (isset($user)) 
+            {
+                return $next($request);
+            }
 
     } 
     var_dump('no tienes permisos'); exit;
