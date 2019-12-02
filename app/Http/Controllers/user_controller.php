@@ -39,7 +39,7 @@ class user_controller extends Controller
     public function userStore(Request $request)
     {
         $user = new User();
-
+        
         $user->register($request);
 
         $data_token = [
@@ -64,7 +64,8 @@ class user_controller extends Controller
     public function show()
     {
         $users = User::all();
-        foreach ($users as $key => $value) {
+        foreach ($users as $key => $value)
+        {
             print($value);
         }
     }

@@ -35,10 +35,10 @@ class book_controller extends Controller
      */
     public function store(Request $request)
     {
-    $book = new Book;
-    $book->title = $request->title;
-    $book->description = $request->description;
-    $book->save();
+        $book = new Book;
+        $book->title = $request->title;
+        $book->description = $request->description;
+        $book->save();
     }
 
     /**
@@ -47,10 +47,11 @@ class book_controller extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show()
+    public function list_books()
     {
         $books = Book::all();
-        foreach ($books as $key => $value) {
+        foreach ($books as $key => $value) 
+        {
             print($value);
         }
     }
