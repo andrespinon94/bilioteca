@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Book;
+use App\User;
+use App\Token;
 
 class book_controller extends Controller
 {
@@ -85,8 +87,25 @@ class book_controller extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
     public function destroy($id)
     {
         //
     }
+
+    public function lendBook (Request $request){
+
+        $token = new Token();
+        $header_token = $request->header('Authorization');
+        $data_token = $token->decode($header_token);
+        $user = User::where('email',$data_token->email)->first();
+        $book = Book::where('id', $request->id_book)->first();
+        $book->users()->attach($user->id);
+
+        return response()->json (["lend"=>"libro prestado"],201);
+
+
+    }
+
+
 }

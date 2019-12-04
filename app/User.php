@@ -13,7 +13,6 @@ class User extends Model
     {
  
     }
-    
     public function register($request)
     {
         $user = new User();

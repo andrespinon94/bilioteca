@@ -28,4 +28,6 @@ Route::group(['middleware'=>['auth']], function()
     Route::GET('list_books','book_controller@list_books');
     Route::POST('store','book_controller@store');
     Route::GET('show','user_controller@show');
+    Route::POST('lendBook','book_controller@lendBook');
+
 });
